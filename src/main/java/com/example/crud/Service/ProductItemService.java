@@ -39,13 +39,13 @@ public class ProductItemService {
         return productItemDto;
     }
 
-    public ResponseEntity<String> updateQtyInStock(Integer id, Integer qtyInStock) {
+    public String updateQtyInStock(Integer id, Integer qtyInStock) {
         ProductItem productItem = productItemRepository.findById(id).orElse(null);
         if (productItem == null) {
-            return ResponseEntity.badRequest().body("Product item not found");
+            return "Product item not found";
         }
         productItem.setQtyInStock(qtyInStock);
         productItemRepository.save(productItem);
-        return ResponseEntity.ok("Qty in stock updated successfully");
+        return "Qty in stock updated successfully";
     }
 }

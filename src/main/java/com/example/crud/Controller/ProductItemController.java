@@ -31,9 +31,8 @@ public class ProductItemController {
         return productItemService.getProductItemById(id);
     }
 
-    @PostMapping("/updateQtyInStock")
-    public ResponseEntity<String> updateQtyInStock(@RequestParam Integer id, @RequestParam Integer qtyInStock) {
-        return ResponseEntity.ok(id.toString());
-        //return productItemService.updateQtyInStock(id, qtyInStock);
+    @PutMapping("/updateQtyInStock")
+    public ResponseEntity<String> updateQtyInStock(@RequestParam Integer productItemId, @RequestParam Integer newQty) {
+        return ResponseEntity.ok(productItemService.updateQtyInStock(productItemId, newQty));
     }
 }
