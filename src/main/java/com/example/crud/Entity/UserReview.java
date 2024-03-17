@@ -9,7 +9,7 @@ import java.time.Instant;
 @Getter
 @Setter
 @Entity
-@Table(name = "user_review", schema = "ecommerce3")
+@Table(name = "user_review", schema = "coolmate")
 public class UserReview {
     @Id
     @Column(name = "id", nullable = false)
