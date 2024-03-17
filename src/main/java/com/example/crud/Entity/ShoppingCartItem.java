@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "shopping_cart_item", schema = "ecommerce3")
+@Table(name = "shopping_cart_item", schema = "coolmate")
 public class ShoppingCartItem {
     @Id
     @Column(name = "id", nullable = false)

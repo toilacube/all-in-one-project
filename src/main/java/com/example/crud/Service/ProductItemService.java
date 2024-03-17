@@ -5,20 +5,18 @@ import com.example.crud.Entity.ProductItem;
 import com.example.crud.Entity.ProductItemImage;
 import com.example.crud.Repository.ProductItemImageRepository;
 import com.example.crud.Repository.ProductItemRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ProductItemService {
-    @Autowired
-    private ProductItemRepository productItemRepository;
 
-    @Autowired
-    private ProductItemImageRepository prodItImgRepository;
+    private final ProductItemRepository productItemRepository;
+
+    private final ProductItemImageRepository prodItImgRepository;
 
     public ProductItemDto getProductItemById(Integer id) {
         ProductItem productItem = productItemRepository.findById(id).orElse(null);

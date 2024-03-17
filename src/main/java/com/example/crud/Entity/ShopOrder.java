@@ -1,6 +1,7 @@
 package com.example.crud.Entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,7 +10,7 @@ import java.time.Instant;
 @Getter
 @Setter
 @Entity
-@Table(name = "shop_order", schema = "ecommerce3")
+@Table(name = "shop_order", schema = "coolmate")
 public class ShopOrder {
     @Id
     @Column(name = "id", nullable = false)
@@ -25,15 +26,19 @@ public class ShopOrder {
     @Column(name = "payment_method")
     private Integer paymentMethod;
 
+    @Size(max = 200)
     @Column(name = "shipping_address", length = 200)
     private String shippingAddress;
 
+    @Size(max = 100)
     @Column(name = "name", length = 100)
     private String name;
 
+    @Size(max = 12)
     @Column(name = "phone", length = 12)
     private String phone;
 
+    @Size(max = 50)
     @Column(name = "email", length = 50)
     private String email;
 

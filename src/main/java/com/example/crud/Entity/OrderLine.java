@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "order_line", schema = "ecommerce3")
+@Table(name = "order_line", schema = "coolmate")
 public class OrderLine {
     @Id
     @Column(name = "id", nullable = false)

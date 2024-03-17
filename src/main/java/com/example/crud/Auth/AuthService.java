@@ -1,5 +1,6 @@
 package com.example.crud.Auth;
 
+import com.example.crud.Entity.Role;
 import com.example.crud.User.CustomUserDetails;
 import com.example.crud.Entity.User;
 import com.example.crud.User.UserRepository;
@@ -34,7 +35,7 @@ public class AuthService {
 
         User user = User.builder().email(registerRequest.getEmail())
                 .password(encoder.encode(registerRequest.getPassword()))
-                .role(registerRequest.getRole())
+                .role(Role.user)
                 .build();
 
         userRepository.save(user);
