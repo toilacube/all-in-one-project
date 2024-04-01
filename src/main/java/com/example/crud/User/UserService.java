@@ -19,7 +19,9 @@ public class UserService implements IUserService {
 
     @Override
     public User getUser() {
+
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
+
         return userRepository.findByEmail(email).orElse(null);
     }
     @Override
