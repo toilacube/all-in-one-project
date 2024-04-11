@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class CrudApplication {
 
 	// TODO: paginate get all products
+	// TODO: read about principal, credentials, authorities
 	// TODO advance: cache, idempotent, api versioning, write tests unit test
 	public static void main(String[] args) {
 		SpringApplication.run(CrudApplication.class, args);
