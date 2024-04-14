@@ -1,12 +1,11 @@
-package com.example.crud.Auth;
+package com.example.crud.Auth.Provider;
 
+import com.example.crud.Auth.AuthenToken.EmailPasswordAuthenticationToken;
 import com.example.crud.Entity.User;
 import com.example.crud.User.CustomUserDetails;
-import com.example.crud.User.CustomUserDetailsService;
 import com.example.crud.User.UserRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.authentication.AuthenticationManager;
+import lombok.AllArgsConstructor;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,16 +14,17 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
-@RequiredArgsConstructor
-public class CustomAuthenticationManager implements AuthenticationManager {
+@Component
+@AllArgsConstructor
+public class EmailPasswordProvider implements AuthenticationProvider {
     private final UserRepository userRepository;
-
+    private final PasswordEncoder encoder;
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        // Input: Authentication object is passed from AuthService with princial is email and credentials is password
+
 
         String email = authentication.getPrincipal() + "";
         String password = authentication.getCredentials() + "";
@@ -39,9 +39,18 @@ public class CustomAuthenticationManager implements AuthenticationManager {
             throw new BadCredentialsException("1000");
         }
         if (!userDetails.isEnabled()) {
+
             throw new DisabledException("1001");
         }
 
-        return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+        return new EmailPasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+    }
+    
+
+    // Check if this provider is appropriate for current authentication
+    @Override
+    public boolean supports(Class<?> authentication) {
+
+        return EmailPasswordAuthenticationToken.class.equals(authentication);
     }
 }

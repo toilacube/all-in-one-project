@@ -1,5 +1,6 @@
 package com.example.crud.Auth;
 
+import com.example.crud.Auth.AuthenToken.EmailPasswordAuthenticationToken;
 import com.example.crud.Entity.Role;
 import com.example.crud.User.CustomUserDetails;
 import com.example.crud.Entity.User;
@@ -25,7 +26,7 @@ public class AuthService {
 
     private final UserRepository userRepository;
     private final JwtService jwtService;
-    private final CustomAuthenticationManager customAuthenticationManager;
+    private final AuthenticationManager authenticationManager;
 
     public ResponseEntity<AuthenResponse> register(RegisterRequest registerRequest) {
 
@@ -47,11 +48,11 @@ public class AuthService {
     }
 
 
-    public AuthenResponse authenticate(AuthRequest authRequest)  {
+    public AuthenResponse loginByEmailPassword(AuthRequest authRequest)  {
         PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
-        Authentication authentication = customAuthenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
+        Authentication authentication = authenticationManager.authenticate(
+                new EmailPasswordAuthenticationToken(
                         authRequest.getEmail(),
                         authRequest.getPassword()
                 )
@@ -60,13 +61,6 @@ public class AuthService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-
-//        User user = userRepository.findByEmail(authRequest.getEmail()).orElseThrow();
-//        if(user.getPassword() == null || !encoder.matches(authRequest.getPassword(), user.getPassword())) {
-//            throw new BadCredentialsException("Invalid email or password");
-//        }
-//
-//        CustomUserDetails userDetails = new CustomUserDetails(user);
 
         var jwtToken = jwtService.generateToken(userDetails);
         return AuthenResponse.builder().token(jwtToken).build();

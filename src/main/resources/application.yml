@@ -1,0 +1,32 @@
+server:
+  servlet:
+    contextPath: /api
+
+springdoc:
+  api-docs:
+    path: /api-docs
+
+spring:
+  data:
+    web:
+      pageable:
+        default-page-size: 20
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/coolmate
+    username: root
+    password: bo777909
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 694359740103-abpcs808utb1i6jm2q0thr37pqjtootm.apps.googleusercontent.com
+            client-secret: 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
+            redirect-uri: "http://localhost:8080/api/login/oauth2/code/google"
+

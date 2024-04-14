@@ -35,6 +35,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         final String jwt;
         final String userEmail;
 
+
         if (authorHeader != null && authorHeader.startsWith("Bearer ")) {
             jwt = authorHeader.substring(7);
             userEmail = jwtService.extractEmail(jwt);
@@ -59,6 +60,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
 
         } else {
+
         filterChain.doFilter(request, response);
         }
     }
