@@ -1,5 +1,6 @@
 package com.example.crud.Config;
 
+import com.example.crud.Auth.AuthenToken.EmailPasswordAuthenticationToken;
 import com.example.crud.User.CustomUserDetails;
 import com.example.crud.User.CustomUserDetailsService;
 import com.example.crud.Auth.JwtService;
@@ -45,7 +46,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 CustomUserDetails userDetails = this.customUserDetailsService.loadUserByUsername(userEmail);
                 if (jwtService.isTokenValid(jwt, userDetails)) {
 
-                    UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+                    EmailPasswordAuthenticationToken authToken = new EmailPasswordAuthenticationToken(
                             userDetails,
                             null,
                             userDetails.getAuthorities());
