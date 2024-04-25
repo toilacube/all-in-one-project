@@ -35,16 +35,17 @@ public class UserServiceTest {
     @Mock
     private SecurityContext securityContext;
 
+    private User user = User.builder()
+            .email("test@gmail.com")
+            .build();
+
     @BeforeEach
     public void setup() {
+
         SecurityContextHolder.setContext(securityContext);
     }
     @Test
     public void UserService_GetUser() {
-
-        User user = User.builder()
-                .email("test@gmail.com")
-                .build();
 
         when(securityContext.getAuthentication()).thenReturn(authentication);
         when(authentication.getName()).thenReturn("test@gmail.com");
@@ -60,25 +61,17 @@ public class UserServiceTest {
     @Test
     public void UserService_GetUserInfo() {
 
-        // Mock getUser() behavior
-        User user = User.builder()
-                .email("test@gmail.com")
-                .name("Test User")
-                .role(Role.user)
-                .phoneNumber("1234567890")
-                .build();
-
         when(securityContext.getAuthentication()).thenReturn(authentication);
         when(authentication.getName()).thenReturn("test@gmail.com");
 
         when(userRepository.findByEmail("test@gmail.com")).thenReturn(Optional.of(user));
 
-
         // Call the method and verify the result
         UserInfoResponse userInfoResponse = userService.getUserInfo();
 
         Assertions.assertThat(userInfoResponse).isNotNull();
-
     }
+
+
 }
 
