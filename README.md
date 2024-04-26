@@ -1,7 +1,4 @@
 # A RestAPI back-end service for an e-commerce website (Coolmate)
-## Database Schema
-
-![coolmate_diagram.png](coolmate_diagram.png)
 
 ## Hightlights Features:
 - Apply Servlet Authentication Architecture to do Authentication and Authorization with Jwt and Google OAuth.
@@ -10,8 +7,12 @@
 - InMemoryCache using Caffeine to store Products listing.
 
 ## To-do:
-- [ ] idempotent 
+- [ ] idempotent
 - [ ] database pooling
 - [ ] cloud
 - [ ] Exception, error, auth handler,...
-- 
+
+## Database Schema
+
+![coolmate_diagram.png](coolmate_diagram.png)
+
