@@ -1,7 +1,7 @@
 # A RestAPI back-end service for an e-commerce website (Coolmate)
 ## Database Schema
 
-![coolmate_diagram.png](..%2F..%2Fdumps%2Fcoolmate_diagram.png)
+![coolmate_diagram.png](coolmate_diagram.png)
 
 ## Hightlights Features:
 - Apply Servlet Authentication Architecture to do Authentication and Authorization with Jwt and Google OAuth.
