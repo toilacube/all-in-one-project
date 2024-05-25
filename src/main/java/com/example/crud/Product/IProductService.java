@@ -8,4 +8,5 @@ public interface IProductService {
     PaginationResponse getAllProducts(int page, int pageSize);
     List<ProductResponse> getProductsByCategory();
 
+    ProductResponse getProduct(int id);
 }

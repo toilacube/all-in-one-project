@@ -1,12 +1,14 @@
 package com.example.crud.DTO.Response;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.util.List;
 @Data
 @AllArgsConstructor
+@Builder
 public class ProductItemDto implements Serializable {
 
     private Integer id;

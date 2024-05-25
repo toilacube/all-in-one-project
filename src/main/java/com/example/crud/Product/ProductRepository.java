@@ -9,4 +9,5 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface ProductRepository extends PagingAndSortingRepository<Product, Integer> {
     Page<Product> findAll(Pageable paging);
+    Product findById(int id);
 }

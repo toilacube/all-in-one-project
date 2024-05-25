@@ -2,7 +2,7 @@ package com.example.crud.Product;
 
 import com.example.crud.Entity.PaginationResponse;
 import com.example.crud.Entity.Product;
-import com.example.crud.Entity.ProductItem;
+import com.example.crud.Exception.ProductNotFoundException;
 import com.example.crud.ProductItem.ProductItemResponse;
 import com.example.crud.ProductItem.ProductItemService;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import com.example.crud.Product.ProductRepository;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -69,6 +68,23 @@ public class ProductService implements IProductService{
     @Override
     public List<ProductResponse> getProductsByCategory() {
         return null;
+    }
+
+    @Override
+    public ProductResponse getProduct(int id) {
+        Product product = productRepository.findById(id);
+
+        if(product == null) throw new ProductNotFoundException(id);
+        List<ProductItemResponse> productItems = productItemService.getItemsOfProduct(id);
+
+        return ProductResponse.builder()
+                        .id(product.getId())
+                        .name(product.getName())
+                        .description(product.getDescription())
+                        .priceInt(product.getPriceInt())
+                        .priceStr(product.getPriceStr())
+                        .productItemResponse(productItems)
+                        .build();
     }
 
 }
