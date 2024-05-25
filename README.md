@@ -5,6 +5,7 @@
 - [ To-do](#head2)
 - [ Database Schema](#head3)
 - [ How i Dockerize this project and local database](#head4)
+- [ How i learn Spring Authentication architecture ](#head5)
 
 <a id="head1"></a>
 ## Hightlight Features:
@@ -27,3 +28,6 @@
 
 <a id="head4"></a>
 ## [How i Dockerize this project and local database](https://toilacube.hashnode.dev/i-should-have-learned-docker-earlier)
+
+<a id="head5"></a>
+## [How i learn Spring Authentication architecture](https://toilacube.hashnode.dev/lets-understand-the-architecture-behind-spring-authentication)
