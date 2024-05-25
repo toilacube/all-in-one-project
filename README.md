@@ -8,10 +8,9 @@
 
 <a id="head1"></a>
 ## Hightlight Features:
-- Apply Servlet Authentication Architecture to do Authentication and Authorization with Jwt and Google OAuth.
-- Basic unit test using JUnit and Mockito (for repository and service layer).
-- Dockerize the project and the database.
-- InMemoryCache using Caffeine to store Products listing.
+- Planned, built, and fine-tuned a detailed database structure, focusing on making data management smooth and effective through careful and thorough design work.
+- Developed comprehensive user and admin management features for an e-commerce platform.
+- Developed RestAPI, ensuring to REST architectural principles for clear and consistent communication between client and server components
 
 <a id="head2"></a>
 ## To-do:
