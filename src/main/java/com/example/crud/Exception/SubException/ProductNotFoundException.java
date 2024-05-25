@@ -1,4 +1,4 @@
-package com.example.crud.Exception;
+package com.example.crud.Exception.SubException;
 
 public class ProductNotFoundException extends RuntimeException{
     public ProductNotFoundException(int productId) {

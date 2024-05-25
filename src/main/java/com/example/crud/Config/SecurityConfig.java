@@ -52,6 +52,9 @@ public class SecurityConfig {
                  //       .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(emailPasswordProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling(exception -> exception
+                        .accessDeniedHandler()
+                )
                 ;
 
     return http.build();

@@ -2,7 +2,7 @@ package com.example.crud.Product;
 
 import com.example.crud.Entity.PaginationResponse;
 import com.example.crud.Entity.Product;
-import com.example.crud.Exception.ProductNotFoundException;
+import com.example.crud.Exception.SubException.ProductNotFoundException;
 import com.example.crud.ProductItem.ProductItemResponse;
 import com.example.crud.ProductItem.ProductItemService;
 import lombok.RequiredArgsConstructor;
