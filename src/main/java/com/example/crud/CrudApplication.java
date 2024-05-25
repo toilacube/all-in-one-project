@@ -8,7 +8,7 @@ import org.springframework.cache.annotation.EnableCaching;
 @EnableCaching
 public class CrudApplication {
 
-	// TODO: read about principal, credentials, authorities
+	// TODO (priority: high): Response status and Exception handling 
 	// TODO advance: cache, idempotent, api versioning, write tests unit test
 	public static void main(String[] args) {
 		SpringApplication.run(CrudApplication.class, args);
