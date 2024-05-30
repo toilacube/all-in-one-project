@@ -6,6 +6,7 @@
 - [ Database Schema](#head3)
 - [ How i Dockerize this project and local database](#head4)
 - [ How i learn Spring Authentication architecture ](#head5)
+- [ How i crawl data and store it in MySQL using Python and Javascript](#head6)
 
 <a id="head1"></a>
 ## Hightlight Features:
@@ -31,3 +32,6 @@
 
 <a id="head5"></a>
 ## [How i learn Spring Authentication architecture](https://toilacube.hashnode.dev/lets-understand-the-architecture-behind-spring-authentication)
+
+<a id="head6"></a>
+## [How i crawl data and store it in MySQL using Python and Javascript](https://github.com/toilacube/coolmate-data)
