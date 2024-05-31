@@ -4,6 +4,7 @@ import com.example.crud.Auth.AuthenToken.EmailPasswordAuthenticationToken;
 import com.example.crud.Entity.Role;
 import com.example.crud.Entity.User;
 import com.example.crud.User.UserRepository;
+import com.example.crud.User.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ import org.springframework.security.oauth2.server.resource.authentication.Bearer
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationProvider;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 
 
 @Service
@@ -27,6 +29,7 @@ public class AuthService {
 
 
     private final UserRepository userRepository;
+    private final UserService userService;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
@@ -45,7 +48,9 @@ public class AuthService {
                 .build();
         userRepository.save(user);
 
-        return ResponseEntity.ok(RegisterResponse.builder().id(user.getId()).email(user.getEmail()).build());
+        User createdUser = userService.getUserByEmail(registerRequest.getEmail());
+
+        return ResponseEntity.ok(RegisterResponse.builder().id(createdUser.getId()).email(createdUser.getEmail()).build());
     }
 
 

@@ -17,6 +17,10 @@ public class UserService implements IUserService {
     private final UserRepository userRepository;
     private final UserAddressRepository userAddressRepository;
 
+    public User getUserByEmail(String email){
+        return userRepository.findByEmail(email).orElse(null);
+    }
+
     @Override
     public User getUser() {
 

@@ -41,7 +41,6 @@ public class UserServiceTest {
 
     @BeforeEach
     public void setup() {
-
         SecurityContextHolder.setContext(securityContext);
     }
     @Test
