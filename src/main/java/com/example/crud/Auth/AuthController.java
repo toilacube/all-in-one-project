@@ -1,6 +1,7 @@
 package com.example.crud.Auth;
 
 
+import com.example.crud.Entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,8 +13,8 @@ public class AuthController {
 
     public final AuthService authService;
     @PostMapping("/register")
-    public ResponseEntity <AuthResponse> register(@RequestBody RegisterRequest registerRequest) {
-        return authService.register(registerRequest);
+    public ResponseEntity <RegisterResponse> register(@RequestBody RegisterRequest registerRequest) {
+        return (authService.register(registerRequest));
     }
 
 

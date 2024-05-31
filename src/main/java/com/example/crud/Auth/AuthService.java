@@ -31,7 +31,7 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
 
 
-    public ResponseEntity<AuthResponse> register(RegisterRequest registerRequest) {
+    public ResponseEntity<RegisterResponse> register(RegisterRequest registerRequest) {
 
         if (userRepository.existsUserByEmail(registerRequest.getEmail())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
@@ -43,25 +43,9 @@ public class AuthService {
                 .password(encoder.encode(registerRequest.getPassword()))
                 .role(Role.user)
                 .build();
+        userRepository.save(user);
 
-        try {
-            userRepository.save(user);
-
-            Authentication authentication = authenticationManager.authenticate(
-                    new EmailPasswordAuthenticationToken(
-                            user.getEmail(),
-                            user.getPassword()
-                    )
-            );
-
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-
-            String jwtToken = jwtService.generateToken(authentication);
-            return ResponseEntity.ok(AuthResponse.builder().accessToken(jwtToken).build());
-
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to register and authenticate user", e);
-        }
+        return ResponseEntity.ok(RegisterResponse.builder().id(user.getId()).email(user.getEmail()).build());
     }
 
 
