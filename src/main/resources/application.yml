@@ -2,6 +2,25 @@ server:
   servlet:
     contextPath: /api
 
+rsa:
+  private-key: classpath:certs/private.pem
+  public-key: classpath:certs/public.pem
+
+#access-token:
+#  private: ${ACCESS_TOKEN_PRIVATE_KEY_PATH}
+#  public: ${ACCESS_TOKEN_PUBLIC_KEY_PATH}
+#refresh-token:
+#  private: ${REFRESH_TOKEN_PRIVATE_KEY_PATH}
+#  public: ${REFRESH_TOKEN_PUBLIC_KEY_PATH}
+
+
+access-token:
+  private: classpath:certs/private.pem
+  public: classpath:certs/public.pem
+refresh-token:
+  private: classpath:certs/refresh_private.pem
+  public: ./certs/refresh_public.pem
+
 springdoc:
   api-docs:
     path: /api-docs
