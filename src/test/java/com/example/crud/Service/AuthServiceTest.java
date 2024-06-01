@@ -73,7 +73,7 @@ public class AuthServiceTest {
         RegisterRequest request = RegisterRequest.builder()
                 .email("test@example.com")
                 .password("password")
-                .role(Role.user)
+                .role(Role.USER)
                 .build();
         when(userRepository.existsUserByEmail(request.getEmail())).thenReturn(false);
 
@@ -81,7 +81,7 @@ public class AuthServiceTest {
                 .id(1)
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.user)
+                .role(Role.USER)
                 .build();
 
         doReturn(user).when(userRepository).save(any(User.class));

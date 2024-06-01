@@ -5,7 +5,14 @@ import com.example.crud.User.Request.UserUpdateRequest;
 import com.example.crud.User.Response.UserInfoResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.GrantedAuthority;
+
+import java.util.Collection;
 
 @RestController
 @RequestMapping(path = "/user")
@@ -23,6 +30,12 @@ public class UserController {
     @PutMapping("/updateInfo")
     public ResponseEntity<String> updateUserInfo(@RequestBody UserUpdateRequest userUpdateRequest) {
         return userService.updateUserInfo(userUpdateRequest);
+    }
+
+    @GetMapping("/getAuthorities")
+    public Collection<? extends GrantedAuthority> getCurrentUserAuthorities() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication.getAuthorities();
     }
 
 
