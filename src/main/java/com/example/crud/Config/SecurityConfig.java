@@ -1,6 +1,8 @@
 package com.example.crud.Config;
 
 
+import com.example.crud.Auth.Provider.EmailPasswordProvider;
+import com.example.crud.Filter.JwtAuthenticationFilter;
 import com.example.crud.User.CustomUserDetailsService;
 import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.JWKSet;
@@ -21,24 +23,45 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationProvider;
+import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-//    private final JwtAuthFilter jwtAuthFilter;
-//    private final EmailPasswordProvider emailPasswordProvider;
+
+    private static final String[] PUBLIC_MATCHERS = {
+            "/auth/**",
+            "/api-docs/**",
+            "/swagger-ui/**",
+            "/product/**",
+            "/productItem/**",
+            "/user/**"
+    };
+
+    private static final String[] ADMIN_MATCHERS = {
+            "/user/getAllUsers",
+            "/admin/**"
+    };
+
+
+    private final JwtAuthenticationFilter jwtAuthFilter;
+    private final JwtDecoder jwtDecoder;
+ //   private final EmailPasswordProvider emailPasswordProvider;
     private final CustomUserDetailsService customUserDetailsService;
-    private final RsaKeyConfigProperties rsaKeyConfigProperties;
+
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
 
@@ -53,26 +76,20 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        //.requestMatchers("/**").permitAll()
-                        //.requestMatchers("/user/getAllUsers").hasRole("admin")
-                        .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/api-docs/**").permitAll()
-                        .requestMatchers("/swagger-ui/**").permitAll()
-                        .requestMatchers("/product/**").permitAll()
-                        .requestMatchers("/productItem/**").permitAll()
+                        .requestMatchers(ADMIN_MATCHERS).hasRole("ADMIN")
+                        .requestMatchers(PUBLIC_MATCHERS).permitAll()
                         .anyRequest().authenticated())
-               // .sessionManagement(session -> session
-                 //       .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
              //   .authenticationProvider(emailPasswordProvider)
-            //    .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .oauth2ResourceServer((oauth2) ->
                         oauth2.jwt((jwt) ->
-                                jwt.decoder(jwtAccessTokenDecoder())
+                                jwt
+                                        .decoder(jwtDecoder)
+                                        .jwtAuthenticationConverter(jwtAuthenticationConverter())
                                 ))
                 .userDetailsService(customUserDetailsService)
-//                .exceptionHandling(exception -> exception
-//                        .accessDeniedHandler()
-//                )
                 ;
 
     return http.build();
@@ -81,23 +98,6 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    @Primary
-    public JwtDecoder jwtAccessTokenDecoder() {
-        return NimbusJwtDecoder.withPublicKey(rsaKeyConfigProperties.getPublicKey()).build();
-    }
-
-    @Bean
-    @Primary
-    public JwtEncoder jwtAccessTokenEncoder() {
-        JWK jwk = new RSAKey
-                .Builder(rsaKeyConfigProperties.getPublicKey())
-                .privateKey(rsaKeyConfigProperties.getPrivateKey()).build();
-
-        JWKSource<SecurityContext> jwks = new ImmutableJWKSet<>(new JWKSet(jwk));
-        return new NimbusJwtEncoder(jwks);
     }
 
 
@@ -109,4 +109,14 @@ public class SecurityConfig {
         return provider;
     }
 
-}
+    private JwtAuthenticationConverter jwtAuthenticationConverter() {
+        // create a custom JWT converter to map the "roles" from the token as granted authorities
+        JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
+        jwtGrantedAuthoritiesConverter.setAuthoritiesClaimName("roles");
+        jwtGrantedAuthoritiesConverter.setAuthorityPrefix("ROLE_");
+        JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
+        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwtGrantedAuthoritiesConverter);
+        return jwtAuthenticationConverter;
+    }
+
+    }
