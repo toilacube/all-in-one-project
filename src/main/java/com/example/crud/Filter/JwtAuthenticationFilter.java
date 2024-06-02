@@ -61,8 +61,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             if (jwtService.isTokenValid(token, userDetails)) {
                 Jwt jwt = jwtDecoder.decode(token);
                 JwtAuthenticationToken jwtAuthenticationToken = new JwtAuthenticationToken(
-                        jwt, // UserDetails object representing the authenticated user
-                        userDetails.getAuthorities() // User's authorities (roles)
+                        jwt,
+                        userDetails.getAuthorities()
                 );
                 jwtAuthenticationToken.setDetails(
                         new WebAuthenticationDetailsSource().buildDetails(request)

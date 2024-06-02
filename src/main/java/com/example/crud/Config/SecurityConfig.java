@@ -48,12 +48,22 @@ public class SecurityConfig {
             "/swagger-ui/**",
             "/product/**",
             "/productItem/**",
-            "/user/**"
     };
 
     private static final String[] ADMIN_MATCHERS = {
             "/user/getAllUsers",
-            "/admin/**"
+            "/admin/**",
+            "/category/**",
+            "/statistic/**",
+
+    };
+
+    private static final String[] USER_MATCHERS = {
+            "/user/**",
+            "/cart/**",
+            "/review/**",
+            "/order/**",
+
     };
 
 
@@ -77,6 +87,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(ADMIN_MATCHERS).hasRole("ADMIN")
+                        .requestMatchers(USER_MATCHERS).hasAnyRole("USER", "ADMIN")
                         .requestMatchers(PUBLIC_MATCHERS).permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session
