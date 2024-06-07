@@ -12,11 +12,13 @@
 <a id="head1"></a>
 ## Responsibilities:
 - Led a team of 3 members (2 frontend developers and myself as backend developer) to ensure cohesive project development and integration.
+- Implemented a comprehensive set of features for both users and administrators in an e-commerce website using MVC architecture.
 - Designed and optimized a detailed database structure for efficient data management.
-- Developed comprehensive user and admin management features for an e-commerce platform.
-- Created RESTful APIs for clear and consistent client-server communication.
-- Collaborated with frontend developers to ensure seamless integration and data flow.
-- Integrated Swagger for clear and interactive API documentation.
+- Integrated \textbf{VNPay payment} gateways for website functionality.
+- Utilized \textbf{Redis} to temporarily reserve user orders during the payment process.
+- Implemented \textbf{JWT authentication} for secure API access, and \textbf{role-based authorization middleware} for controlled resource access.
+- Integrated Cloudinary for users to upload and retrieve images seamlessly from the cloud.
+- Developed data crawling scripts using Python and JavaScript to collect data from a website and store it to the database.
 
 <a id="postman"></a>
 ## API Documentation:
