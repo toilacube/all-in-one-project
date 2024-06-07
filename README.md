@@ -14,9 +14,9 @@
 - Led a team of 3 members (2 frontend developers and myself as backend developer) to ensure cohesive project development and integration.
 - Implemented a comprehensive set of features for both users and administrators in an e-commerce website using MVC architecture.
 - Designed and optimized a detailed database structure for efficient data management.
-- Integrated \textbf{VNPay payment} gateways for website functionality.
-- Utilized \textbf{Redis} to temporarily reserve user orders during the payment process.
-- Implemented \textbf{JWT authentication} for secure API access, and \textbf{role-based authorization middleware} for controlled resource access.
+- Integrated VNPay payment gateways for website functionality.
+- Utilized Redis to temporarily reserve user orders during the payment process.
+- Implemented JWT authentication for secure API access, and \textbf{role-based authorization middleware} for controlled resource access.
 - Integrated Cloudinary for users to upload and retrieve images seamlessly from the cloud.
 - Developed data crawling scripts using Python and JavaScript to collect data from a website and store it to the database.
 
