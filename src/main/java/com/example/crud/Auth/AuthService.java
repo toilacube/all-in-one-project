@@ -3,6 +3,7 @@ package com.example.crud.Auth;
 import com.example.crud.Auth.AuthenToken.EmailPasswordAuthenticationToken;
 import com.example.crud.Entity.Role;
 import com.example.crud.Entity.User;
+import com.example.crud.Exception.ApiResponse;
 import com.example.crud.User.UserRepository;
 import com.example.crud.User.UserService;
 import lombok.RequiredArgsConstructor;
@@ -37,7 +38,7 @@ public class AuthService {
     public ResponseEntity<RegisterResponse> register(RegisterRequest registerRequest) {
 
         if (userRepository.existsUserByEmail(registerRequest.getEmail())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            throw new RuntimeException();
         }
 
         PasswordEncoder encoder = new BCryptPasswordEncoder();

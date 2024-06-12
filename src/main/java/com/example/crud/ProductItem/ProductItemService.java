@@ -5,6 +5,8 @@ import com.example.crud.Entity.ProductItemImage;
 import com.example.crud.Product.ProductResponse;
 import com.example.crud.Product.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.apache.juli.logging.Log;
+import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,6 +22,12 @@ public class ProductItemService implements IProductItemService {
     public List<ProductItemResponse> getItemsOfProduct(int productId){
 
         List<ProductItem> productItems = productItemRepository.findAllByProductId(productId);
+
+        if(productItems.isEmpty()){
+            System.out.println("empty");
+            throw new RuntimeException();
+        }
+
         List<ProductItemResponse> productItemResponses = new ArrayList<>();
 
 
